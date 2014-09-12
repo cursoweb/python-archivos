@@ -49,16 +49,42 @@ import sys
 
 ###
 
-nombre_archivo = 'alice.txt'
+with open('../alice.txt', 'r') as filename:
+    f = filename.read().split()
+    words = {}
+    for word in f:
+        if word in words:
+            
+        else:
+            words.append(word)
+    print f
+filename.closed
 
-def print_words(nombre_archivo):
+#filename = open('../alice.txt')
+
+#f = filename.read()
+
+#words = f.split()
+
+#print words
+#sys.exit(0)
+
+def print_words(filename):
+
+    with open('../alice.txt', 'r') as filename:
+        f = filename.read().split()
+        print f
+    filename.closed
 
 
-def print_top(nombre_archivo):
+sys.exit(0)
+#def print_top(filename):
 
+filename.close()
 
 # Se provee este código básico de parseado de argumentos de línea de comandos
 # que llama a las funciones print_words() y print_top() que debes definir.
+
 def main():
     if len(sys.argv) != 3:
         print 'uso: ./wordcount.py {--count | --topcount} archivo'

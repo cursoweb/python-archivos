@@ -54,10 +54,11 @@ with open('../alice.txt', 'r') as filename:
     words = {}
     for word in f:
         if word in words:
-            
+            words[word] += 1
         else:
-            words.append(word)
-    print f
+            words[word] = 1
+    for k,v in words.items():
+        print k, v
 filename.closed
 
 #filename = open('../alice.txt')

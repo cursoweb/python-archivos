@@ -47,48 +47,68 @@ import sys
 # un diccionario palabra/cantidad.
 # Luego print_words() y print_top() pueden llamar directamente a la función de ayuda.
 
+posicion = 2 #Posibles valores 0: clave 1: valor
+def print_words(nombre_archivo):
+    diccionario = procesarTexto(nombre_archivo)
+
+    #for clave in sorted(diccionario.keys()):
+    #     print clave, diccionario.get(clave)
+    setPosicion("clave")
+    for claveValor in sorted(diccionario.iteritems(), key = orden):
+         print claveValor
+    
+def orden(tuplaDicc):
+    if posicion==1 or posicion==0:
+        return tuplaDicc[posicion]
+    
+def setPosicion(cadena):
+    global posicion
+    if cadena=="clave":    
+        posicion = 0
+    if cadena=="valor":
+        posicion = 1     
+       
+
+def print_top(nombre_archivo):
+    diccionario = procesarTexto(nombre_archivo)
+    contador = 1
+    setPosicion("valor")
+    for claveValor in sorted(diccionario.iteritems(), key = orden, reverse=True):
+         print claveValor
+         contador = contador + 1;
+         if contador == 20:
+            break
+
+def procesarTexto (nombre_archivo): 
+    diccionario = {}
+    contador = 1
+    palabra = ""
+
+    f = open(nombre_archivo, 'rU')
+    for linea in f:
+        listaPalabra = linea.split() 
+        for palabraBruta in listaPalabra:
+            for letra in palabraBruta:
+                if letra.isalpha():
+                    palabra = palabra + letra;
+                else:
+                    break
+            palabra = palabra.lower()
+            if not diccionario.has_key(palabra) and len(palabra)!= 0:
+                diccionario[palabra] = contador
+            elif diccionario.has_key(palabra):
+                diccionario[palabra] = diccionario.get(palabra) + 1
+            palabra = ''
+    f.close()
+    return diccionario
+
 ###
-
-with open('../alice.txt', 'r') as filename:
-    f = filename.read().split()
-    words = {}
-    for word in f:
-        if word in words:
-            words[word] += 1
-        else:
-            words[word] = 1
-    for k,v in words.items():
-        print k, v
-filename.closed
-
-#filename = open('../alice.txt')
-
-#f = filename.read()
-
-#words = f.split()
-
-#print words
-#sys.exit(0)
-
-def print_words(filename):
-
-    with open('../alice.txt', 'r') as filename:
-        f = filename.read().split()
-        print f
-    filename.closed
-
-
-sys.exit(0)
-#def print_top(filename):
-
-filename.close()
 
 # Se provee este código básico de parseado de argumentos de línea de comandos
 # que llama a las funciones print_words() y print_top() que debes definir.
-
 def main():
     if len(sys.argv) != 3:
-        print 'uso: ./wordcount.py {--count | --topcount} archivo'
+        print 'USAR: ./wordcount.py {--count | --topcount} archivo'
         sys.exit(1)
 
     option = sys.argv[1]

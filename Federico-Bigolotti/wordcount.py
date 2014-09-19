@@ -41,7 +41,17 @@ print_words() y print_top().
 
 import sys
 
-# +++tu código aquí+++
+def  print_words(archword):
+	dicc(archword)
+	
+def dicc(archword):
+	f = open(archword,'rU')
+	for  linea in f:
+		print linea,
+	f.close()
+	
+	
+
 # Define las funciones print_words(nombre_archivo) y print_top(nombre_archivo).
 # Puedes escribir una función de ayuda que lee un archivo y construye y retorna
 # un diccionario palabra/cantidad.
@@ -49,43 +59,8 @@ import sys
 
 ###
 
-with open('../alice.txt', 'r') as filename:
-    f = filename.read().split()
-    words = {}
-    for word in f:
-        if word in words:
-            words[word] += 1
-        else:
-            words[word] = 1
-    for k,v in words.items():
-        print k, v
-filename.closed
-
-#filename = open('../alice.txt')
-
-#f = filename.read()
-
-#words = f.split()
-
-#print words
-#sys.exit(0)
-
-def print_words(filename):
-
-    with open('../alice.txt', 'r') as filename:
-        f = filename.read().split()
-        print f
-    filename.closed
-
-
-sys.exit(0)
-#def print_top(filename):
-
-filename.close()
-
 # Se provee este código básico de parseado de argumentos de línea de comandos
 # que llama a las funciones print_words() y print_top() que debes definir.
-
 def main():
     if len(sys.argv) != 3:
         print 'uso: ./wordcount.py {--count | --topcount} archivo'

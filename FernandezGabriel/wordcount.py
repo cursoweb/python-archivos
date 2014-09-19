@@ -46,24 +46,33 @@ import sys
 # Puedes escribir una función de ayuda que lee un archivo y construye y retorna
 # un diccionario palabra/cantidad.
 # Luego print_words() y print_top() pueden llamar directamente a la función de ayuda.
-def print_words(archivo):
-    diccionario(archivo)
- 
 
-def diccionario(archivo):
+def print_words(archivo): # Ordena las Palabras - Cantidad por orden alfabetico
+    tupla = diccionario(archivo)
+    tupla_ord = sorted(tupla)
+    for x in tupla_ord:
+        print x
+
+def print_top(archivo): # Ordena las 20 Palabras - Cantidad que mas se repiten
+    tupla = diccionario(archivo)
+    tupla.sort(key=lambda x: x[1] , reverse=True)
+    for x in range(20):
+        print tupla[x]
+
+def diccionario(archivo): # Función de ayuda que crea el diccionario a partir del archivo Alice.txt
     f = open(archivo,'rU')
-    for palabras in f:
-        print palabras,
+    dicc ={}
+    for lineas in f:
+        cadena = lineas.lower().split()
+        for palabra in cadena:
+            
+            if palabra in dicc:
+                dicc[palabra] = dicc[palabra] + 1
+            else:
+                dicc[palabra] = 1
+    tupla = dicc.items()
     f.close
-
-
-
-
-
-
-
-
-
+    return tupla
 
 
 ###
